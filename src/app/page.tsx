@@ -48,6 +48,12 @@ export default function Home() {
             <li>✅ Custom 404 Page</li>
             <li>✅ Navigation with Next.js Link</li>
             <li>✅ Responsive Design</li>
+            <li>✅ API Endpoints for CRUD Operations</li>
+            <li>✅ Product Management Interface</li>
+            <li>✅ Image Upload Support</li>
+            <li>✅ Price Formatting with $ Sign</li>
+            <li>✅ Edit/Delete Product Features</li>
+            <li>✅ Admin Dashboard</li>
           </ul>
         </div>
       </div>

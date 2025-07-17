@@ -37,81 +37,111 @@ const productDetails: Record<string, any> = {
 };
 
 async function getProduct(id: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/products/${id}`, {
-    cache: 'no-store'
-  });
-  
-  if (!res.ok) {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/products/${id}`, {
+      cache: 'no-store'
+    });
+    
+    if (!res.ok) {
+      return null;
+    }
+    
+    return res.json();
+  } catch (error) {
+    console.error('Error fetching product:', error);
     return null;
   }
-  
-  return res.json();
 }
 
-export default async function ProductPage({ params }: { params: { id: string } }) {
-  const product = await getProduct(params.id);
+export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const product = await getProduct(id);
 
+  // If product doesn't exist in API, show 404
   if (!product) {
     notFound();
   }
 
-  const details = productDetails[params.id];
+  const details = productDetails[id];
 
   return (
-    <main className='min-h-screen p-4'>
-      <div className='max-w-4xl mx-auto'>
-        <Link
-          href='/products'
-          className='text-blue-500 hover:underline mb-6 inline-block font-semibold'
-        >
-          ← Back to Products
-        </Link>
+    <main className="min-h-screen p-4 bg-gray-50">
+      <div className="max-w-4xl mx-auto">
+        <div className="mb-6">
+          <Link 
+            href="/products" 
+            className="text-purple-600 hover:text-purple-800 font-medium flex items-center gap-2 transition-colors"
+          >
+            ← Back to Products
+          </Link>
+        </div>
 
-        <div className='bg-white rounded-lg shadow-lg overflow-hidden'>
-          <div className='md:flex'>
-            <div className='md:w-1/2'>
-              <div className='relative h-64 md:h-96'>
+        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div className="md:flex">
+            {/* Product Image */}
+            <div className="md:w-1/2">
+              <div className="relative h-64 md:h-96">
                 <Image
                   src={details?.image || '/products/default.jpg'}
                   alt={product.name}
                   fill
-                  className='object-cover'
+                  className="object-cover"
                 />
               </div>
             </div>
 
-            <div className='md:w-1/2 p-6'>
-              <h1 className='text-2xl md:text-3xl font-bold mb-4 text-gray-800'>
-                {product.name}
-              </h1>
-
-              <p className='text-xl font-semibold text-purple-600 mb-4'>
-                {product.price}
-              </p>
-
-              <p className='text-gray-700 mb-6'>
-                {details?.description || 'No description available'}
-              </p>
+            {/* Product Info */}
+            <div className="md:w-1/2 p-8">
+              <h1 className="text-3xl font-bold mb-4 text-gray-800">{product.name}</h1>
+              <p className="text-2xl font-bold text-purple-600 mb-6">{product.price}</p>
+              
+              <div className="mb-6">
+                <p className="text-gray-700 leading-relaxed">
+                  {details?.description || 'No description available for this product.'}
+                </p>
+              </div>
 
               {details?.features && (
-                <>
-                  <h3 className='text-lg font-semibold mb-3 text-gray-800'>
-                    Features:
-                  </h3>
-                  <ul className='space-y-2 mb-6'>
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold mb-3 text-gray-800">Features:</h3>
+                  <ul className="space-y-2">
                     {details.features.map((feature: string, index: number) => (
-                      <li key={index} className='flex items-center text-gray-700'>
-                        <span className='text-green-500 mr-2'>✓</span>
+                      <li key={index} className="flex items-center gap-2 text-gray-700">
+                        <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
                         {feature}
                       </li>
                     ))}
                   </ul>
-                </>
+                </div>
               )}
 
-              <button className='w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition-colors'>
-                Add to Cart
-              </button>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link 
+                  href="/products"
+                  className="bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors text-center font-medium"
+                >
+                  Back to Products
+                </Link>
+                <Link 
+                  href="/admin"
+                  className="bg-purple-500 text-white px-6 py-3 rounded-lg hover:bg-purple-600 transition-colors text-center font-medium"
+                >
+                  Go to Admin
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Info */}
+        <div className="mt-8 bg-blue-50 p-6 rounded-lg">
+          <h3 className="text-lg font-semibold mb-2 text-gray-800">Product Information</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
+            <div>
+              <strong>Product ID:</strong> {product.id}
+            </div>
+            <div>
+              <strong>Price:</strong> {product.price}
             </div>
           </div>
         </div>
