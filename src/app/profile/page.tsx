@@ -13,14 +13,6 @@ export default function Profile() {
             </h2>
             <div className='space-y-3 text-left text-gray-800'>
               <div className='flex justify-between'>
-                <span className='font-semibold'>Email:</span>
-                <span>senaprasena168@gmail.com</span>
-              </div>
-              <div className='flex justify-between'>
-                <span className='font-semibold'>Username:</span>
-                <span>senaprasena168</span>
-              </div>
-              <div className='flex justify-between'>
                 <span className='font-semibold'>GitHub:</span>
                 <a
                   href='https://github.com/senaprasena168/JadigTask2.git'
@@ -33,7 +25,7 @@ export default function Profile() {
               </div>
               <div className='flex justify-between'>
                 <span className='font-semibold'>Project:</span>
-                <span>Jabar Istimewa Digital Academy - Task 2</span>
+                <span>Jabar Istimewa Digital Academy - Task 3</span>
               </div>
             </div>
           </div>
@@ -48,6 +40,11 @@ export default function Profile() {
               <li>🏆 Professional navigation system</li>
               <li>🏆 Dynamic page generation</li>
               <li>🏆 Custom 404 page with personality</li>
+              <li>🏆 RESTful API endpoints implementation</li>
+              <li>🏆 Full CRUD operations (Create, Read, Update, Delete)</li>
+              <li>🏆 API integration with frontend</li>
+              <li>🏆 Admin dashboard for product management</li>
+              <li>🏆 Server-side data handling</li>
             </ul>
           </div>
         </div>

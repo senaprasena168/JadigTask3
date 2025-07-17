@@ -2,32 +2,23 @@ import Link from 'next/link';
 
 export default function Navbar() {
   return (
-    <nav className='bg-yellow-400 p-2 shadow-md'>
-      <div className='container mx-auto flex justify-center'>
-        <div className='flex space-x-6'>
-          <Link
-            href='/'
-            className='text-gray-800 hover:text-gray-600 font-semibold text-sm'
-          >
+    <nav className='bg-blue-600 text-white p-4'>
+      <div className='max-w-6xl mx-auto flex justify-between items-center'>
+        <Link href='/' className='text-xl font-bold hover:text-blue-200'>
+          JADIG Task 2
+        </Link>
+        <div className='space-x-6'>
+          <Link href='/' className='hover:text-blue-200'>
             Home
           </Link>
-          <Link
-            href='/about'
-            className='text-gray-800 hover:text-gray-600 font-semibold text-sm'
-          >
+          <Link href='/about' className='hover:text-blue-200'>
             About
           </Link>
-          <Link
-            href='/profile'
-            className='text-gray-800 hover:text-gray-600 font-semibold text-sm'
-          >
-            Profile
-          </Link>
-          <Link
-            href='/products'
-            className='text-gray-800 hover:text-gray-600 font-semibold text-sm'
-          >
+          <Link href='/products' className='hover:text-blue-200'>
             Products
+          </Link>
+          <Link href='/admin/products' className='hover:text-blue-200'>
+            Admin
           </Link>
         </div>
       </div>
